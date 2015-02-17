@@ -5,3 +5,58 @@
  */
 
 include_once 'luggage_blog.features.inc';
+
+
+/*
+ * Implements hook_form_alter()
+ */
+function luggage_blog_form_alter(&$form, &$form_state, $form_id) {
+
+  if($form_id == 'lug_blog_node_form') {
+
+    $form['field_lug_blog_author']['und'][0]['target_id']['#disabled'] = TRUE;
+
+    // Set the default value for blog author to the people node that matches the user's email address
+    if(empty($form['field_lug_blog_author']['und'][0]['target_id']['#value'])) {
+      $mail = $GLOBALS['user']->mail;
+      $author = _luggage_blog_get_people_by_email($mail);
+
+      if($author) {
+        $profile = entity_load('node', $author);
+        $profile = array_shift($profile);
+        $value = $profile->title . " (" . $profile->nid . ")";
+
+        // TODO: this will stomp over existing blog entries
+        $form['field_lug_blog_author']['und'][0]['target_id']['#value'] = $value;
+
+        // TODO: This needs to be cleaned up a bit to look better
+        $form['field_lug_blog_author']['#type'] = 'markup';
+        $form['field_lug_blog_author']['#markup'] = $profile->title;
+      }
+
+    }
+  }
+}
+
+/**
+ * Helper function to get the people node based on email address
+ * @param $mail: email address of target people node
+ * @return array|bool: nid of the people node in a form suitable for entity_load(). FALSE if not found
+ */
+function _luggage_blog_get_people_by_email($mail) {
+  $mail = "bob@example.com";
+
+  $query = new EntityFieldQuery();
+
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'people')
+    ->fieldCondition('field_people_email', 'email', $mail, '=');
+
+  $result = $query->execute();
+
+  if(!empty($result)) {
+      return array_keys($result['node']);
+  }
+
+  return FALSE;
+}
