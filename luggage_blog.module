@@ -14,10 +14,25 @@ function luggage_blog_form_alter(&$form, &$form_state, $form_id) {
 
   if($form_id == 'lug_blog_node_form') {
 
+    // *** Format field_lug_blog_author ***
+
+    // wrappers around the custom markup
+    $prefix = '<div class="field-type-entityreference field-name-field-lugg-blog-author form-wrapper" id="edit-field-lug-blog-author">';
+    $prefix .= '<div class="form-item form-type-textfield form-item-field-lug-blog-author-und">';
+    $prefix .= '<label>Author';
+    $prefix .= '<span class="form-required" title="this field is required.">*</span>';
+    $prefix .= "</label>";
+
+    $suffix = '</div></div>';
+
+    $form['field_lug_blog_author']['#type'] = 'markup';
+    // display the value without the nodeID in parenthesis.
+    $form['field_lug_blog_author']['#markup'] = $prefix . preg_replace("/\([^)]+\)/", "", $form['field_lug_blog_author']['und'][0]['target_id']['#default_value']) . $suffix;
+
     $form['field_lug_blog_author']['und'][0]['target_id']['#disabled'] = TRUE;
 
     // Set the default value for blog author to the people node that matches the user's email address
-    if(empty($form['field_lug_blog_author']['und'][0]['target_id']['#value'])) {
+    if(empty($form['field_lug_blog_author']['und'][0]['target_id']['#default_value'])) {
       $mail = $GLOBALS['user']->mail;
       $author = _luggage_blog_get_people_by_email($mail);
 
@@ -26,12 +41,16 @@ function luggage_blog_form_alter(&$form, &$form_state, $form_id) {
         $profile = array_shift($profile);
         $value = $profile->title . " (" . $profile->nid . ")";
 
-        // TODO: this will stomp over existing blog entries
         $form['field_lug_blog_author']['und'][0]['target_id']['#value'] = $value;
 
         // TODO: This needs to be cleaned up a bit to look better
-        $form['field_lug_blog_author']['#type'] = 'markup';
-        $form['field_lug_blog_author']['#markup'] = $profile->title;
+        $form['field_lug_blog_author']['#markup'] = $prefix . $profile->title . $suffix;
+      }
+      // if there is not a matching author, prompt the user to create their profile.
+      else {
+        drupal_set_message(t('You must <a href="'.$GLOBALS['base_path'].'my/profile">create your profile</a> before creating a blog entry.'), 'warning');
+        // hide the empty field
+        $form['field_lug_blog_author']['#markup'] = ' ';
       }
 
     }
@@ -44,7 +63,6 @@ function luggage_blog_form_alter(&$form, &$form_state, $form_id) {
  * @return array|bool: nid of the people node in a form suitable for entity_load(). FALSE if not found
  */
 function _luggage_blog_get_people_by_email($mail) {
-  $mail = "bob@example.com";
 
   $query = new EntityFieldQuery();
 

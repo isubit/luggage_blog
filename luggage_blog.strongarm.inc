@@ -47,7 +47,7 @@ function luggage_blog_strongarm() {
           'weight' => '9',
         ),
         'title' => array(
-          'weight' => '0',
+          'weight' => '1',
         ),
         'path' => array(
           'weight' => '8',
