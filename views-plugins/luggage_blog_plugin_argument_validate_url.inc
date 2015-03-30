@@ -15,12 +15,15 @@ class luggage_blog_plugin_argument_validate_url extends views_plugin_argument_va
     $handler = &$this->argument;
 
     if (!empty($view->args)) {
-      $arg = 'people/'.$argument;
+      // validate blog view contextual filter based on the referenced alias
+      $arg = 'people/'.$argument; // eg. people/john-rearick
+      // find the nid of the people node given in $argument
       $np = explode('/', drupal_lookup_path('source', $arg));
       if (!empty($np[1])) {
         $nid = $np[1];
         $node = node_load($nid);
         $handler->argument = $nid;
+        // change the title of the page based on the people node title
         $handler->validated_title = "Blog - " . $node->title;
         return TRUE;
       } else {
