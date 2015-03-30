@@ -26,7 +26,7 @@ function luggage_blog_views_api($module = NULL, $api = NULL) {
 function luggage_blog_node_info() {
   $items = array(
     'lug_blog' => array(
-      'name' => t('Blog'),
+      'name' => t('Blog Post'),
       'base' => 'node_content',
       'description' => t('Blog post.'),
       'has_title' => '1',
