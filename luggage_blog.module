@@ -78,3 +78,15 @@ function _luggage_blog_get_people_by_email($mail) {
 
   return FALSE;
 }
+
+/**
+ * Implements theme_preprocess_node()
+ */
+function luggage_blog_preprocess_node(&$vars) {
+  // rewrite the display of the "Display author and date information" to be nicer for only
+  // blog posts.
+  if($vars['submitted'] && $vars['type'] == "lug_blog") {
+    $vars['submitted'] = t("%datetime",
+      array('%datetime' => format_date($vars['node']->created, 'news')));
+  }
+}
