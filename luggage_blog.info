@@ -1,4 +1,4 @@
-name = Luggage Blog
+name = luggage_blog
 description = Blogging feature
 core = 7.x
 package = Luggage
