@@ -78,3 +78,13 @@ function _luggage_blog_get_people_by_email($mail) {
 
   return FALSE;
 }
+
+/**
+ * Implement hook_views_api
+ */
+//function luggage_blog_views_api() {
+//  return array(
+//    'api' => 3.0,
+//    'path' => drupal_get_path('module', 'luggage_blog'),
+//  );
+//}

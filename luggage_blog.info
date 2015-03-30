@@ -33,3 +33,4 @@ features[variable][] = node_submitted_lug_blog
 features[variable][] = pathauto_node_lug_blog_pattern
 features[views_view][] = blog
 features_exclude[dependencies][views] = views
+files[] = views-plugins/luggage_blog_plugin_argument_validate_url.inc
