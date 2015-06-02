@@ -11,6 +11,7 @@ include_once 'luggage_blog.features.inc';
  * Implements hook_form_alter()
  */
 function luggage_blog_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
 
   if($form_id == 'lug_blog_node_form') {
 
@@ -33,12 +34,11 @@ function luggage_blog_form_alter(&$form, &$form_state, $form_id) {
 
     // Set the default value for blog author to the people node that matches the user's email address
     if(empty($form['field_lug_blog_author']['und'][0]['target_id']['#default_value'])) {
-      $mail = $GLOBALS['user']->mail;
-      $author = _luggage_blog_get_people_by_email($mail);
-
-      if($author) {
-        $profile = entity_load('node', $author);
-        $profile = array_shift($profile);
+      $people_nid = db_query("SELECT nid
+                              FROM {node}
+                              WHERE type='people' AND uid = :uid", array(':uid' => $user->uid))->fetchField();
+      if ($people_nid) {
+        $profile = node_load($people_nid);
         $value = $profile->title . " (" . $profile->nid . ")";
 
         $form['field_lug_blog_author']['und'][0]['target_id']['#value'] = $value;
