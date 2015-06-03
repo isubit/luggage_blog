@@ -32,6 +32,17 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '25';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'node';
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = 'No content has been published yet.';
+  $handler->display->display_options['empty']['area']['format'] = 'wysiwyg';
+  /* Relationship: Entity Reference: Referenced Entity */
+  $handler->display->display_options['relationships']['field_lug_blog_author_target_id']['id'] = 'field_lug_blog_author_target_id';
+  $handler->display->display_options['relationships']['field_lug_blog_author_target_id']['table'] = 'field_data_field_lug_blog_author';
+  $handler->display->display_options['relationships']['field_lug_blog_author_target_id']['field'] = 'field_lug_blog_author_target_id';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -57,6 +68,54 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'lug_blog' => 'lug_blog',
+  );
+  /* Filter criterion: Content: First Name (field_people_first_name) */
+  $handler->display->display_options['filters']['field_people_first_name_value']['id'] = 'field_people_first_name_value';
+  $handler->display->display_options['filters']['field_people_first_name_value']['table'] = 'field_data_field_people_first_name';
+  $handler->display->display_options['filters']['field_people_first_name_value']['field'] = 'field_people_first_name_value';
+  $handler->display->display_options['filters']['field_people_first_name_value']['relationship'] = 'field_lug_blog_author_target_id';
+  $handler->display->display_options['filters']['field_people_first_name_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_people_first_name_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_people_first_name_value']['expose']['operator_id'] = 'field_people_first_name_value_op';
+  $handler->display->display_options['filters']['field_people_first_name_value']['expose']['label'] = 'First Name';
+  $handler->display->display_options['filters']['field_people_first_name_value']['expose']['operator'] = 'field_people_first_name_value_op';
+  $handler->display->display_options['filters']['field_people_first_name_value']['expose']['identifier'] = 'field_people_first_name_value';
+  $handler->display->display_options['filters']['field_people_first_name_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    4 => 0,
+    5 => 0,
+    3 => 0,
+    7 => 0,
+    6 => 0,
+    10 => 0,
+    9 => 0,
+    11 => 0,
+    8 => 0,
+  );
+  /* Filter criterion: Content: Last Name (field_people_last_name) */
+  $handler->display->display_options['filters']['field_people_last_name_value']['id'] = 'field_people_last_name_value';
+  $handler->display->display_options['filters']['field_people_last_name_value']['table'] = 'field_data_field_people_last_name';
+  $handler->display->display_options['filters']['field_people_last_name_value']['field'] = 'field_people_last_name_value';
+  $handler->display->display_options['filters']['field_people_last_name_value']['relationship'] = 'field_lug_blog_author_target_id';
+  $handler->display->display_options['filters']['field_people_last_name_value']['operator'] = 'contains';
+  $handler->display->display_options['filters']['field_people_last_name_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_people_last_name_value']['expose']['operator_id'] = 'field_people_last_name_value_op';
+  $handler->display->display_options['filters']['field_people_last_name_value']['expose']['label'] = 'Last Name';
+  $handler->display->display_options['filters']['field_people_last_name_value']['expose']['operator'] = 'field_people_last_name_value_op';
+  $handler->display->display_options['filters']['field_people_last_name_value']['expose']['identifier'] = 'field_people_last_name_value';
+  $handler->display->display_options['filters']['field_people_last_name_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    4 => 0,
+    5 => 0,
+    3 => 0,
+    7 => 0,
+    6 => 0,
+    10 => 0,
+    9 => 0,
+    11 => 0,
+    8 => 0,
   );
 
   /* Display: Page */
@@ -87,18 +146,6 @@ function luggage_blog_views_default_views() {
     'link' => 0,
   );
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Author (field_lug_blog_author) */
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['id'] = 'field_lug_blog_author_target_id';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['table'] = 'field_data_field_lug_blog_author';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['field'] = 'field_lug_blog_author_target_id';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['title_enable'] = TRUE;
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['title'] = '%1';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['default_argument_type'] = 'node';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['validate']['type'] = 'blog';
   $handler->display->display_options['path'] = 'blog';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Blog';
