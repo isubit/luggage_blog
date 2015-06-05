@@ -159,17 +159,21 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['relationships']['field_lug_blog_author_target_id']['table'] = 'field_data_field_lug_blog_author';
   $handler->display->display_options['relationships']['field_lug_blog_author_target_id']['field'] = 'field_lug_blog_author_target_id';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Author (field_lug_blog_author) */
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['id'] = 'field_lug_blog_author_target_id';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['table'] = 'field_data_field_lug_blog_author';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['field'] = 'field_lug_blog_author_target_id';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['default_argument_type'] = 'node';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['specify_validation'] = TRUE;
-  $handler->display->display_options['arguments']['field_lug_blog_author_target_id']['validate']['type'] = 'user';
+  /* Contextual filter: Content: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['relationship'] = 'field_lug_blog_author_target_id';
+  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'node';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['nid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['nid']['validate']['type'] = 'node';
+  $handler->display->display_options['arguments']['nid']['validate_options']['types'] = array(
+    'people' => 'people',
+  );
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
