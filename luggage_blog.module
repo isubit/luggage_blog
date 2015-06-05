@@ -46,11 +46,11 @@ function luggage_blog_form_alter(&$form, &$form_state, $form_id) {
         // TODO: This needs to be cleaned up a bit to look better
         $form['field_lug_blog_author']['#markup'] = $prefix . $profile->title . $suffix;
       }
-      // if there is not a matching author, prompt the user to create their profile.
       else {
+        // if there is not a matching author, prompt the user to create their profile.
         drupal_set_message(t('You must <a href="'.$GLOBALS['base_path'].'my/profile">create your profile</a> before creating a blog entry.'), 'warning');
-        // hide the empty field
         $form['field_lug_blog_author']['#markup'] = ' ';
+        $form['#disabled'] = TRUE;
       }
 
     }
