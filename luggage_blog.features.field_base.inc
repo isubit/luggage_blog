@@ -13,44 +13,35 @@ function luggage_blog_field_default_field_bases() {
   // Exported field_base: 'field_lug_blog_author'
   $field_bases['field_lug_blog_author'] = array(
     'active' => 1,
-    'cardinality' => 1,
+    'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_lug_blog_author',
     'foreign keys' => array(
-      'node' => array(
+      'tid' => array(
         'columns' => array(
-          'target_id' => 'nid',
+          'tid' => 'tid',
         ),
-        'table' => 'node',
+        'table' => 'taxonomy_term_data',
       ),
     ),
     'indexes' => array(
-      'target_id' => array(
-        0 => 'target_id',
+      'tid' => array(
+        0 => 'tid',
       ),
     ),
     'locked' => 0,
-    'module' => 'entityreference',
+    'module' => 'taxonomy',
     'settings' => array(
-      'handler' => 'base',
-      'handler_settings' => array(
-        'behaviors' => array(
-          'views-select-list' => array(
-            'status' => 0,
-          ),
-        ),
-        'sort' => array(
-          'type' => 'none',
-        ),
-        'target_bundles' => array(
-          'people' => 'people',
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'aliases',
+          'parent' => 0,
         ),
       ),
-      'target_type' => 'node',
     ),
     'translatable' => 0,
-    'type' => 'entityreference',
+    'type' => 'taxonomy_term_reference',
   );
 
   // Exported field_base: 'field_lug_blog_files'

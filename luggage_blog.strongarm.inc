@@ -50,13 +50,16 @@ function luggage_blog_strongarm() {
           'weight' => '9',
         ),
         'title' => array(
-          'weight' => '1',
+          'weight' => '0',
         ),
         'path' => array(
           'weight' => '8',
         ),
         'xmlsitemap' => array(
           'weight' => '7',
+        ),
+        'redirect' => array(
+          'weight' => '10',
         ),
       ),
       'display' => array(),
