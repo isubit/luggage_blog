@@ -111,7 +111,7 @@ function luggage_blog_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_lug_blog_pattern';
-  $strongarm->value = 'blog/[node:field-lug-blog-author:title]/[node:title]';
+  $strongarm->value = 'blog/[node:field-lug-blog-author]/[node:title]';
   $export['pathauto_node_lug_blog_pattern'] = $strongarm;
 
   return $export;
