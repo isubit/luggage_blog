@@ -1,0 +1,19 @@
+.view-display-id-person_blog_page_hero_attachment .views-row-1 {
+    min-height: 150px;
+}
+
+.view-display-id-person_blog_page_hero_attachment .views-field-field-people-bio {
+    margin-right: 170px;
+}
+
+.view-display-id-person_blog_page_hero_attachment .views-field-field-people-image {
+    position: absolute;
+    right: 0;
+    top: 15px;
+}
+
+.view-display-id-person_blog_page_hero_attachment .views-field-field-people-image img {
+    height: 170px;
+    width: auto;
+    border-radius: 6px;
+}
