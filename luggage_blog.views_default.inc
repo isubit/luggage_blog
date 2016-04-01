@@ -39,11 +39,6 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Sort criterion: Content: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -185,8 +180,15 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['menu']['context_only_inline'] = 0;
 
   /* Display: Blog Author List Attachment */
-  $handler = $view->new_display('attachment', 'Blog Author List Attachment', 'attachment_1');
-  $handler->display->display_options['pager']['type'] = 'some';
+  $handler = $view->new_display('attachment', 'Blog Author List Attachment', 'blog_author_list_attachment');
+  $handler->display->display_options['defaults']['use_ajax'] = FALSE;
+  $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['defaults']['group_by'] = FALSE;
+  $handler->display->display_options['defaults']['query'] = FALSE;
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['pure_distinct'] = TRUE;
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'flexslider';
   $handler->display->display_options['style_options']['optionset'] = 'carousel';
@@ -195,6 +197,17 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Content: Alias Names (field_people_aliases) */
+  $handler->display->display_options['relationships']['field_people_aliases_tid']['id'] = 'field_people_aliases_tid';
+  $handler->display->display_options['relationships']['field_people_aliases_tid']['table'] = 'field_data_field_people_aliases';
+  $handler->display->display_options['relationships']['field_people_aliases_tid']['field'] = 'field_people_aliases_tid';
+  /* Relationship: Taxonomy term: Content using Author(s) */
+  $handler->display->display_options['relationships']['reverse_field_lug_blog_author_node']['id'] = 'reverse_field_lug_blog_author_node';
+  $handler->display->display_options['relationships']['reverse_field_lug_blog_author_node']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['relationships']['reverse_field_lug_blog_author_node']['field'] = 'reverse_field_lug_blog_author_node';
+  $handler->display->display_options['relationships']['reverse_field_lug_blog_author_node']['relationship'] = 'field_people_aliases_tid';
+  $handler->display->display_options['relationships']['reverse_field_lug_blog_author_node']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Profile Picture */
   $handler->display->display_options['fields']['field_people_image']['id'] = 'field_people_image';
@@ -204,7 +217,7 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['fields']['field_people_image']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_people_image']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_people_image']['settings'] = array(
-    'image_style' => 'flexslider_thumbnail',
+    'image_style' => 'people_thumb',
     'image_link' => '',
   );
   /* Field: Content: Title */
@@ -214,6 +227,16 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_type'] = 'h3';
+  $handler->display->display_options['fields']['title']['element_class'] = 'text-center';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['relationship'] = 'reverse_field_lug_blog_author_node';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -230,12 +253,26 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'people' => 'people',
   );
+  /* Filter criterion: Content: Alias Names (field_people_aliases) */
+  $handler->display->display_options['filters']['field_people_aliases_tid']['id'] = 'field_people_aliases_tid';
+  $handler->display->display_options['filters']['field_people_aliases_tid']['table'] = 'field_data_field_people_aliases';
+  $handler->display->display_options['filters']['field_people_aliases_tid']['field'] = 'field_people_aliases_tid';
+  $handler->display->display_options['filters']['field_people_aliases_tid']['operator'] = 'not empty';
+  $handler->display->display_options['filters']['field_people_aliases_tid']['value'] = array(
+    'min' => '',
+    'max' => '',
+    'value' => '',
+  );
+  $handler->display->display_options['filters']['field_people_aliases_tid']['reduce_duplicates'] = TRUE;
+  $handler->display->display_options['filters']['field_people_aliases_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_people_aliases_tid']['vocabulary'] = 'aliases';
   $handler->display->display_options['displays'] = array(
     'page' => 'page',
     'default' => 0,
     'block_1' => 0,
     'person_blog_page' => 0,
   );
+  $handler->display->display_options['inherit_arguments'] = FALSE;
 
   /* Display: Person Blog */
   $handler = $view->new_display('page', 'Person Blog', 'person_blog_page');

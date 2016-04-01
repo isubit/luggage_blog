@@ -22,5 +22,7 @@ function luggage_blog_views_pre_render(&$view) {
   if ($view->name == 'blog' && $view->current_display == 'person_blog_page') {
     $view->set_title($view->build_info['substitutions']['%1']);
     drupal_add_css(drupal_get_path('module', 'luggage_blog') . '/css/luggage_blog_person.css');
+  } else if ($view->name == 'blog' && $view->current_display == 'blog_author_list_attachment') {
+    drupal_add_css(drupal_get_path('module', 'luggage_blog') . '/css/luggage_blog_author_list_attachment.css');
   }
 }
