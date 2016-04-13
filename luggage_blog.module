@@ -26,3 +26,11 @@ function luggage_blog_views_pre_render(&$view) {
     drupal_add_css(drupal_get_path('module', 'luggage_blog') . '/css/luggage_blog_author_list_attachment.css');
   }
 }
+
+function luggage_blog_views_query_alter(&$view, &$query) {
+  if ($view->name == 'blog' && ($view->current_display == 'block_2' || $view->current_display == 'page_1')) {
+    $query->distinct = TRUE;
+
+//    $query->add_field('taxonomy_term_data', 'nid')
+  }
+}
