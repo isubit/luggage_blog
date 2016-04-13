@@ -46,13 +46,6 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['filters']['status']['value'] = 1;
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'lug_blog' => 'lug_blog',
-  );
 
   /* Display: Blog */
   $handler = $view->new_display('page', 'Blog', 'page');
@@ -284,10 +277,10 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['filters']['field_people_aliases_tid']['type'] = 'select';
   $handler->display->display_options['filters']['field_people_aliases_tid']['vocabulary'] = 'aliases';
   $handler->display->display_options['displays'] = array(
-    'page' => 'page',
     'default' => 0,
-    'block_1' => 0,
+    'page' => 0,
     'person_blog_page' => 0,
+    'block_1' => 0,
   );
   $handler->display->display_options['inherit_arguments'] = FALSE;
 
@@ -536,6 +529,111 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['fields']['body']['settings'] = array(
     'trim_length' => '600',
   );
+
+  /* Display: Blog Author Block */
+  $handler = $view->new_display('block', 'Blog Author Block', 'block_2');
+  $handler->display->display_options['display_description'] = 'Displays recent authors of blogs';
+  $handler->display->display_options['defaults']['group_by'] = FALSE;
+  $handler->display->display_options['group_by'] = TRUE;
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: Text area */
+  $handler->display->display_options['header']['area']['id'] = 'area';
+  $handler->display->display_options['header']['area']['table'] = 'views';
+  $handler->display->display_options['header']['area']['field'] = 'area';
+  $handler->display->display_options['header']['area']['content'] = '<a href="#">View all bloggers</a>';
+  $handler->display->display_options['header']['area']['format'] = 'wysiwyg';
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Text area */
+  $handler->display->display_options['footer']['area']['id'] = 'area';
+  $handler->display->display_options['footer']['area']['table'] = 'views';
+  $handler->display->display_options['footer']['area']['field'] = 'area';
+  $handler->display->display_options['footer']['area']['content'] = '<a href="#">View all bloggers</a>';
+  $handler->display->display_options['footer']['area']['format'] = 'wysiwyg';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Author(s) */
+  $handler->display->display_options['fields']['field_lug_blog_author']['id'] = 'field_lug_blog_author';
+  $handler->display->display_options['fields']['field_lug_blog_author']['table'] = 'field_data_field_lug_blog_author';
+  $handler->display->display_options['fields']['field_lug_blog_author']['field'] = 'field_lug_blog_author';
+  $handler->display->display_options['fields']['field_lug_blog_author']['label'] = '';
+  $handler->display->display_options['fields']['field_lug_blog_author']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_lug_blog_author']['delta_offset'] = '0';
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'min' => '',
+    'max' => '',
+    'value' => '',
+    'lug_blog' => 'lug_blog',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Content: Author(s) (field_lug_blog_author) */
+  $handler->display->display_options['filters']['field_lug_blog_author_tid']['id'] = 'field_lug_blog_author_tid';
+  $handler->display->display_options['filters']['field_lug_blog_author_tid']['table'] = 'field_data_field_lug_blog_author';
+  $handler->display->display_options['filters']['field_lug_blog_author_tid']['field'] = 'field_lug_blog_author_tid';
+  $handler->display->display_options['filters']['field_lug_blog_author_tid']['operator'] = 'and';
+  $handler->display->display_options['filters']['field_lug_blog_author_tid']['value'] = '';
+  $handler->display->display_options['filters']['field_lug_blog_author_tid']['reduce_duplicates'] = TRUE;
+  $handler->display->display_options['filters']['field_lug_blog_author_tid']['vocabulary'] = 'aliases';
+
+  /* Display: Blog Authors Page */
+  $handler = $view->new_display('page', 'Blog Authors Page', 'page_1');
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Author(s) */
+  $handler->display->display_options['fields']['field_lug_blog_author']['id'] = 'field_lug_blog_author';
+  $handler->display->display_options['fields']['field_lug_blog_author']['table'] = 'field_data_field_lug_blog_author';
+  $handler->display->display_options['fields']['field_lug_blog_author']['field'] = 'field_lug_blog_author';
+  $handler->display->display_options['fields']['field_lug_blog_author']['label'] = '';
+  $handler->display->display_options['fields']['field_lug_blog_author']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_lug_blog_author']['delta_offset'] = '0';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'lug_blog' => 'lug_blog',
+  );
+  $handler->display->display_options['path'] = 'blog/authors';
   $export['blog'] = $view;
 
   return $export;
