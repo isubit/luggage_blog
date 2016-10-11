@@ -48,4 +48,5 @@ features[variable][] = node_preview_lug_blog
 features[variable][] = node_submitted_lug_blog
 features[variable][] = pathauto_node_lug_blog_pattern
 features[views_view][] = blog
+features[views_view][] = bloggers
 files[] = views-plugins/luggage_blog_plugin_argument_validate_url.inc

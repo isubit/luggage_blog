@@ -10,7 +10,7 @@
 function luggage_blog_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_lug_blog_author'
+  // Exported field_base: 'field_lug_blog_author'.
   $field_bases['field_lug_blog_author'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -36,7 +36,7 @@ function luggage_blog_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_lug_blog_files'
+  // Exported field_base: 'field_lug_blog_files'.
   $field_bases['field_lug_blog_files'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -59,7 +59,7 @@ function luggage_blog_field_default_field_bases() {
     'type' => 'file',
   );
 
-  // Exported field_base: 'field_lug_blog_image'
+  // Exported field_base: 'field_lug_blog_image'.
   $field_bases['field_lug_blog_image'] = array(
     'active' => 1,
     'cardinality' => -1,

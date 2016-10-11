@@ -10,7 +10,7 @@
 function luggage_blog_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-lug_blog-body'
+  // Exported field_instance: 'node-lug_blog-body'.
   $field_instances['node-lug_blog-body'] = array(
     'bundle' => 'lug_blog',
     'default_value' => NULL,
@@ -75,7 +75,7 @@ function luggage_blog_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-lug_blog-field_category'
+  // Exported field_instance: 'node-lug_blog-field_category'.
   $field_instances['node-lug_blog-field_category'] = array(
     'bundle' => 'lug_blog',
     'default_value' => NULL,
@@ -134,7 +134,7 @@ function luggage_blog_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-lug_blog-field_lug_blog_author'
+  // Exported field_instance: 'node-lug_blog-field_lug_blog_author'.
   $field_instances['node-lug_blog-field_lug_blog_author'] = array(
     'bundle' => 'lug_blog',
     'default_value' => NULL,
@@ -195,7 +195,7 @@ function luggage_blog_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-lug_blog-field_lug_blog_files'
+  // Exported field_instance: 'node-lug_blog-field_lug_blog_files'.
   $field_instances['node-lug_blog-field_lug_blog_files'] = array(
     'bundle' => 'lug_blog',
     'deleted' => 0,
@@ -276,7 +276,7 @@ function luggage_blog_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-lug_blog-field_lug_blog_image'
+  // Exported field_instance: 'node-lug_blog-field_lug_blog_image'.
   $field_instances['node-lug_blog-field_lug_blog_image'] = array(
     'bundle' => 'lug_blog',
     'deleted' => 0,
@@ -365,7 +365,7 @@ function luggage_blog_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-lug_blog-field_tags'
+  // Exported field_instance: 'node-lug_blog-field_tags'.
   $field_instances['node-lug_blog-field_tags'] = array(
     'bundle' => 'lug_blog',
     'default_value' => NULL,

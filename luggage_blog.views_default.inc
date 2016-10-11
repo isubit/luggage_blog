@@ -77,7 +77,6 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['fields']['field_lug_blog_author']['table'] = 'field_data_field_lug_blog_author';
   $handler->display->display_options['fields']['field_lug_blog_author']['field'] = 'field_lug_blog_author';
   $handler->display->display_options['fields']['field_lug_blog_author']['label'] = '';
-  $handler->display->display_options['fields']['field_lug_blog_author']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['field_lug_blog_author']['alter']['path'] = 'blog/[field_lug_blog_author]';
   $handler->display->display_options['fields']['field_lug_blog_author']['alter']['replace_spaces'] = TRUE;
   $handler->display->display_options['fields']['field_lug_blog_author']['alter']['path_case'] = 'lower';
@@ -123,7 +122,7 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['ui_name'] = 'Read more link';
   $handler->display->display_options['fields']['nothing']['label'] = '';
-  $handler->display->display_options['fields']['nothing']['alter']['text'] = '<span class="text-muted">Read more</span>';
+  $handler->display->display_options['fields']['nothing']['alter']['text'] = 'Read more<br /><br />';
   $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['nothing']['alter']['path'] = '[path]';
   $handler->display->display_options['fields']['nothing']['alter']['absolute'] = TRUE;
@@ -137,7 +136,7 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['fields']['field_category']['alter']['alter_text'] = TRUE;
   $handler->display->display_options['fields']['field_category']['alter']['text'] = '[field_category]';
   $handler->display->display_options['fields']['field_category']['element_label_type'] = 'span';
-  $handler->display->display_options['fields']['field_category']['element_label_class'] = 'fa fa-tag';
+  $handler->display->display_options['fields']['field_category']['element_label_class'] = 'fa fa-tag text-muted';
   $handler->display->display_options['fields']['field_category']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_category']['element_wrapper_class'] = 'text-muted';
   $handler->display->display_options['fields']['field_category']['delta_offset'] = '0';
@@ -729,6 +728,173 @@ function luggage_blog_views_default_views() {
   );
   $handler->display->display_options['path'] = 'blog/authors';
   $export['blog'] = $view;
+
+  $view = new view();
+  $view->name = 'bloggers';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'users';
+  $view->human_name = 'Bloggers';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Bloggers';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['group_by'] = TRUE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['perm'] = 'access user profiles';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '75';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['style_plugin'] = 'table';
+  /* Relationship: User: Representative node */
+  $handler->display->display_options['relationships']['uid_representative']['id'] = 'uid_representative';
+  $handler->display->display_options['relationships']['uid_representative']['table'] = 'users';
+  $handler->display->display_options['relationships']['uid_representative']['field'] = 'uid_representative';
+  $handler->display->display_options['relationships']['uid_representative']['subquery_sort'] = 'node.changed';
+  $handler->display->display_options['relationships']['uid_representative']['subquery_regenerate'] = TRUE;
+  $handler->display->display_options['relationships']['uid_representative']['subquery_view'] = '';
+  $handler->display->display_options['relationships']['uid_representative']['subquery_namespace'] = '';
+  /* Relationship: Content: Author(s) (field_lug_blog_author) */
+  $handler->display->display_options['relationships']['field_lug_blog_author_tid']['id'] = 'field_lug_blog_author_tid';
+  $handler->display->display_options['relationships']['field_lug_blog_author_tid']['table'] = 'field_data_field_lug_blog_author';
+  $handler->display->display_options['relationships']['field_lug_blog_author_tid']['field'] = 'field_lug_blog_author_tid';
+  $handler->display->display_options['relationships']['field_lug_blog_author_tid']['relationship'] = 'uid_representative';
+  /* Field: User: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'users';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'node';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
+  $handler->display->display_options['fields']['type']['relationship'] = 'uid_representative';
+  $handler->display->display_options['fields']['type']['exclude'] = TRUE;
+  /* Field: Content: Author(s) */
+  $handler->display->display_options['fields']['field_lug_blog_author']['id'] = 'field_lug_blog_author';
+  $handler->display->display_options['fields']['field_lug_blog_author']['table'] = 'field_data_field_lug_blog_author';
+  $handler->display->display_options['fields']['field_lug_blog_author']['field'] = 'field_lug_blog_author';
+  $handler->display->display_options['fields']['field_lug_blog_author']['relationship'] = 'uid_representative';
+  $handler->display->display_options['fields']['field_lug_blog_author']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_lug_blog_author']['alter']['path'] = 'blog/[field_lug_blog_author]';
+  $handler->display->display_options['fields']['field_lug_blog_author']['type'] = 'views_node_author';
+  $handler->display->display_options['fields']['field_lug_blog_author']['delta_offset'] = '0';
+  /* Field: Taxonomy term: Name */
+  $handler->display->display_options['fields']['name_1']['id'] = 'name_1';
+  $handler->display->display_options['fields']['name_1']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name_1']['field'] = 'name';
+  $handler->display->display_options['fields']['name_1']['relationship'] = 'field_lug_blog_author_tid';
+  $handler->display->display_options['fields']['name_1']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['name_1']['alter']['text'] = '[field_lug_blog_author]';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['relationship'] = 'uid_representative';
+  $handler->display->display_options['fields']['title']['label'] = 'Latest Blog Post';
+  /* Sort criterion: Taxonomy term: Name */
+  $handler->display->display_options['sorts']['name']['id'] = 'name';
+  $handler->display->display_options['sorts']['name']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['sorts']['name']['field'] = 'name';
+  $handler->display->display_options['sorts']['name']['relationship'] = 'field_lug_blog_author_tid';
+  /* Filter criterion: User: Active */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'users';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['relationship'] = 'uid_representative';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'lug_blog' => 'lug_blog',
+  );
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'blog/bloggers';
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block_recent_bloggers');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Recent Bloggers';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  $handler->display->display_options['defaults']['footer'] = FALSE;
+  /* Footer: Global: Text area */
+  $handler->display->display_options['footer']['area']['id'] = 'area';
+  $handler->display->display_options['footer']['area']['table'] = 'views';
+  $handler->display->display_options['footer']['area']['field'] = 'area';
+  $handler->display->display_options['footer']['area']['content'] = '<a href="blog/bloggers">View all bloggers</a>';
+  $handler->display->display_options['footer']['area']['format'] = 'wysiwyg';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: User: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'users';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['label'] = '';
+  $handler->display->display_options['fields']['name']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['name']['link_to_user'] = FALSE;
+  /* Field: Content: Type */
+  $handler->display->display_options['fields']['type']['id'] = 'type';
+  $handler->display->display_options['fields']['type']['table'] = 'node';
+  $handler->display->display_options['fields']['type']['field'] = 'type';
+  $handler->display->display_options['fields']['type']['relationship'] = 'uid_representative';
+  $handler->display->display_options['fields']['type']['exclude'] = TRUE;
+  /* Field: Content: Author(s) */
+  $handler->display->display_options['fields']['field_lug_blog_author']['id'] = 'field_lug_blog_author';
+  $handler->display->display_options['fields']['field_lug_blog_author']['table'] = 'field_data_field_lug_blog_author';
+  $handler->display->display_options['fields']['field_lug_blog_author']['field'] = 'field_lug_blog_author';
+  $handler->display->display_options['fields']['field_lug_blog_author']['relationship'] = 'uid_representative';
+  $handler->display->display_options['fields']['field_lug_blog_author']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_lug_blog_author']['alter']['path'] = 'blog/[field_lug_blog_author]';
+  $handler->display->display_options['fields']['field_lug_blog_author']['type'] = 'views_node_author';
+  $handler->display->display_options['fields']['field_lug_blog_author']['delta_offset'] = '0';
+  /* Field: Taxonomy term: Name */
+  $handler->display->display_options['fields']['name_1']['id'] = 'name_1';
+  $handler->display->display_options['fields']['name_1']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['name_1']['field'] = 'name';
+  $handler->display->display_options['fields']['name_1']['relationship'] = 'field_lug_blog_author_tid';
+  $handler->display->display_options['fields']['name_1']['label'] = '';
+  $handler->display->display_options['fields']['name_1']['alter']['alter_text'] = TRUE;
+  $handler->display->display_options['fields']['name_1']['alter']['text'] = '[field_lug_blog_author]';
+  $handler->display->display_options['fields']['name_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Post date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'node';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['relationship'] = 'uid_representative';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  $handler->display->display_options['block_description'] = 'Recent Bloggers';
+  $export['bloggers'] = $view;
 
   return $export;
 }
