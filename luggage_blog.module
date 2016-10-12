@@ -13,8 +13,7 @@ function luggage_blog_preprocess_node(&$vars) {
   // rewrite the display of the "Display author and date information" to be nicer for only
   // blog posts.
   if($vars['submitted'] && $vars['type'] == "lug_blog") {
-    $vars['submitted'] = t("%datetime",
-      array('%datetime' => format_date($vars['node']->created, 'news')));
+    $vars['submitted'] = t("%datetime", array('%datetime' => format_date($vars['node']->created, 'luggage_blog')));
   }
 }
 
@@ -33,4 +32,32 @@ function luggage_blog_views_query_alter(&$view, &$query) {
 
 //    $query->add_field('taxonomy_term_data', 'nid')
   }
+}
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function luggage_blog_field_formatter_info_alter(&$info) {
+  // Take over views_node_author format for a bit to change some things for blog.
+  // http://drupal.stackexchange.com/questions/58168/hook-into-other-modules-field-formatter
+  $info['views_node_author']['module'] = 'luggage_blog';
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function luggage_blog_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  // Override the date format for blog author display.
+
+  // Bring in the luggage_aliases field formatter to get things set up.
+  $element = luggage_aliases_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display);
+
+  // Alter date format for luggage blog.
+  if ($entity->type == 'lug_blog' && $display['type'] == 'views_node_author') {
+    foreach ($items as $delta => $item) {
+      $element[$delta]['#created'] = format_date($entity->created, 'luggage_blog');
+    }
+  }
+
+  return $element;
 }
