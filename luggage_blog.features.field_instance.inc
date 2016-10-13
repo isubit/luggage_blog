@@ -10,7 +10,7 @@
 function luggage_blog_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-lug_blog-body'
+  // Exported field_instance: 'node-lug_blog-body'.
   $field_instances['node-lug_blog-body'] = array(
     'bundle' => 'lug_blog',
     'default_value' => NULL,
@@ -75,7 +75,7 @@ function luggage_blog_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-lug_blog-field_category'
+  // Exported field_instance: 'node-lug_blog-field_category'.
   $field_instances['node-lug_blog-field_category'] = array(
     'bundle' => 'lug_blog',
     'default_value' => NULL,
@@ -94,7 +94,7 @@ function luggage_blog_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 3,
+        'weight' => 1,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -134,83 +134,68 @@ function luggage_blog_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-lug_blog-field_lug_blog_author'
+  // Exported field_instance: 'node-lug_blog-field_lug_blog_author'.
   $field_instances['node-lug_blog-field_lug_blog_author'] = array(
     'bundle' => 'lug_blog',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Enter the author or authors separated by a comma.',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'links' => 0,
-          'view_mode' => 'teaser',
-        ),
-        'type' => 'entityreference_entity_view',
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
         'weight' => 5,
       ),
       'full' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'links' => 0,
-          'view_mode' => 'teaser',
-        ),
-        'type' => 'entityreference_entity_view',
-        'weight' => 5,
-      ),
-      'search_index' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'links' => 0,
-          'view_mode' => 'teaser',
-        ),
-        'type' => 'entityreference_entity_view',
+        'label' => 'above',
+        'module' => 'luggage_aliases',
+        'settings' => array(),
+        'type' => 'author_list',
         'weight' => 3,
       ),
+      'search_index' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_plain',
+        'weight' => 5,
+      ),
       'search_result' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => 1,
-        ),
-        'type' => 'entityreference_label',
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
       'teaser' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => 1,
-        ),
-        'type' => 'entityreference_label',
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_lug_blog_author',
-    'label' => 'Author',
+    'label' => 'Author(s)',
+    'placeholder' => '',
     'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
+      'active' => 0,
+      'module' => 'taxonomy',
       'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
+        'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 0,
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 1,
     ),
   );
 
-  // Exported field_instance: 'node-lug_blog-field_lug_blog_files'
+  // Exported field_instance: 'node-lug_blog-field_lug_blog_files'.
   $field_instances['node-lug_blog-field_lug_blog_files'] = array(
     'bundle' => 'lug_blog',
     'deleted' => 0,
@@ -226,14 +211,14 @@ function luggage_blog_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 2,
+        'weight' => 5,
       ),
       'search_index' => array(
         'label' => 'above',
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 5,
+        'weight' => 4,
       ),
       'search_result' => array(
         'label' => 'above',
@@ -291,7 +276,7 @@ function luggage_blog_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-lug_blog-field_lug_blog_image'
+  // Exported field_instance: 'node-lug_blog-field_lug_blog_image'.
   $field_instances['node-lug_blog-field_lug_blog_image'] = array(
     'bundle' => 'lug_blog',
     'deleted' => 0,
@@ -307,7 +292,7 @@ function luggage_blog_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 1,
+        'weight' => 4,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -317,7 +302,7 @@ function luggage_blog_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 4,
+        'weight' => 3,
       ),
       'search_result' => array(
         'label' => 'hidden',
@@ -380,7 +365,7 @@ function luggage_blog_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-lug_blog-field_tags'
+  // Exported field_instance: 'node-lug_blog-field_tags'.
   $field_instances['node-lug_blog-field_tags'] = array(
     'bundle' => 'lug_blog',
     'default_value' => NULL,
@@ -399,7 +384,7 @@ function luggage_blog_field_default_field_instances() {
         'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
-        'weight' => 4,
+        'weight' => 2,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -445,9 +430,10 @@ function luggage_blog_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Author');
+  t('Author(s)');
   t('Body');
   t('Category');
+  t('Enter the author or authors separated by a comma.');
   t('File(s)');
   t('Image(s)');
   t('Tags');

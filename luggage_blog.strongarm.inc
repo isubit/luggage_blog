@@ -13,6 +13,13 @@ function luggage_blog_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'date_format_luggage_blog';
+  $strongarm->value = 'F j, Y g:i A';
+  $export['date_format_luggage_blog'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'field_bundle_settings_node__lug_blog';
   $strongarm->value = array(
     'view_modes' => array(
@@ -50,13 +57,16 @@ function luggage_blog_strongarm() {
           'weight' => '9',
         ),
         'title' => array(
-          'weight' => '1',
+          'weight' => '0',
         ),
         'path' => array(
           'weight' => '8',
         ),
         'xmlsitemap' => array(
           'weight' => '7',
+        ),
+        'redirect' => array(
+          'weight' => '10',
         ),
       ),
       'display' => array(),
@@ -108,7 +118,7 @@ function luggage_blog_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_lug_blog_pattern';
-  $strongarm->value = 'blog/[node:field-lug-blog-author:title]/[node:title]';
+  $strongarm->value = 'blog/[node:field-lug-blog-author]/[node:title]';
   $export['pathauto_node_lug_blog_pattern'] = $strongarm;
 
   return $export;
