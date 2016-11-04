@@ -63,16 +63,8 @@ function luggage_blog_views_default_views() {
   );
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
-  /* Relationship: Content: Alias Names (field_people_aliases) */
-  $handler->display->display_options['relationships']['field_people_aliases_tid']['id'] = 'field_people_aliases_tid';
-  $handler->display->display_options['relationships']['field_people_aliases_tid']['table'] = 'field_data_field_people_aliases';
-  $handler->display->display_options['relationships']['field_people_aliases_tid']['field'] = 'field_people_aliases_tid';
-  /* Relationship: Content: Author(s) (field_lug_blog_author) */
-  $handler->display->display_options['relationships']['field_lug_blog_author_tid']['id'] = 'field_lug_blog_author_tid';
-  $handler->display->display_options['relationships']['field_lug_blog_author_tid']['table'] = 'field_data_field_lug_blog_author';
-  $handler->display->display_options['relationships']['field_lug_blog_author_tid']['field'] = 'field_lug_blog_author_tid';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Author(s) */
+  /* Field: Content: Authors */
   $handler->display->display_options['fields']['field_lug_blog_author']['id'] = 'field_lug_blog_author';
   $handler->display->display_options['fields']['field_lug_blog_author']['table'] = 'field_data_field_lug_blog_author';
   $handler->display->display_options['fields']['field_lug_blog_author']['field'] = 'field_lug_blog_author';
@@ -85,9 +77,8 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['fields']['field_lug_blog_author']['settings'] = array(
     'link' => 0,
   );
-  $handler->display->display_options['fields']['field_lug_blog_author']['group_rows'] = FALSE;
   $handler->display->display_options['fields']['field_lug_blog_author']['delta_offset'] = '0';
-  $handler->display->display_options['fields']['field_lug_blog_author']['multi_type'] = 'ul';
+  $handler->display->display_options['fields']['field_lug_blog_author']['separator'] = '';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -194,7 +185,7 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['relationships']['field_people_aliases_tid']['id'] = 'field_people_aliases_tid';
   $handler->display->display_options['relationships']['field_people_aliases_tid']['table'] = 'field_data_field_people_aliases';
   $handler->display->display_options['relationships']['field_people_aliases_tid']['field'] = 'field_people_aliases_tid';
-  /* Relationship: Taxonomy term: Content using Author(s) */
+  /* Relationship: Taxonomy term: Content using Authors */
   $handler->display->display_options['relationships']['reverse_field_lug_blog_author_node']['id'] = 'reverse_field_lug_blog_author_node';
   $handler->display->display_options['relationships']['reverse_field_lug_blog_author_node']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['relationships']['reverse_field_lug_blog_author_node']['field'] = 'reverse_field_lug_blog_author_node';
@@ -365,7 +356,7 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Author(s) (field_lug_blog_author) */
+  /* Contextual filter: Content: Authors (field_lug_blog_author) */
   $handler->display->display_options['arguments']['field_lug_blog_author_tid']['id'] = 'field_lug_blog_author_tid';
   $handler->display->display_options['arguments']['field_lug_blog_author_tid']['table'] = 'field_data_field_lug_blog_author';
   $handler->display->display_options['arguments']['field_lug_blog_author_tid']['field'] = 'field_lug_blog_author_tid';
@@ -522,7 +513,7 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Author(s) */
+  /* Field: Content: Authors */
   $handler->display->display_options['fields']['field_lug_blog_author']['id'] = 'field_lug_blog_author';
   $handler->display->display_options['fields']['field_lug_blog_author']['table'] = 'field_data_field_lug_blog_author';
   $handler->display->display_options['fields']['field_lug_blog_author']['field'] = 'field_lug_blog_author';
@@ -784,7 +775,7 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
-  /* Field: Content: Author(s) */
+  /* Field: Content: Authors */
   $handler->display->display_options['fields']['field_lug_blog_author']['id'] = 'field_lug_blog_author';
   $handler->display->display_options['fields']['field_lug_blog_author']['table'] = 'field_data_field_lug_blog_author';
   $handler->display->display_options['fields']['field_lug_blog_author']['field'] = 'field_lug_blog_author';
@@ -878,7 +869,7 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
-  /* Field: Content: Author(s) */
+  /* Field: Content: Authors */
   $handler->display->display_options['fields']['field_lug_blog_author']['id'] = 'field_lug_blog_author';
   $handler->display->display_options['fields']['field_lug_blog_author']['table'] = 'field_data_field_lug_blog_author';
   $handler->display->display_options['fields']['field_lug_blog_author']['field'] = 'field_lug_blog_author';
@@ -1001,7 +992,7 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['relationships']['uid_representative']['subquery_regenerate'] = TRUE;
   $handler->display->display_options['relationships']['uid_representative']['subquery_view'] = '';
   $handler->display->display_options['relationships']['uid_representative']['subquery_namespace'] = '';
-  /* Relationship: Content: Author(s) (field_lug_blog_author) */
+  /* Relationship: Content: Authors (field_lug_blog_author) */
   $handler->display->display_options['relationships']['field_lug_blog_author_tid']['id'] = 'field_lug_blog_author_tid';
   $handler->display->display_options['relationships']['field_lug_blog_author_tid']['table'] = 'field_data_field_lug_blog_author';
   $handler->display->display_options['relationships']['field_lug_blog_author_tid']['field'] = 'field_lug_blog_author_tid';
@@ -1019,7 +1010,7 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['fields']['type']['field'] = 'type';
   $handler->display->display_options['fields']['type']['relationship'] = 'uid_representative';
   $handler->display->display_options['fields']['type']['exclude'] = TRUE;
-  /* Field: Content: Author(s) */
+  /* Field: Content: Authors */
   $handler->display->display_options['fields']['field_lug_blog_author']['id'] = 'field_lug_blog_author';
   $handler->display->display_options['fields']['field_lug_blog_author']['table'] = 'field_data_field_lug_blog_author';
   $handler->display->display_options['fields']['field_lug_blog_author']['field'] = 'field_lug_blog_author';
@@ -1105,7 +1096,7 @@ function luggage_blog_views_default_views() {
   $handler->display->display_options['fields']['type']['field'] = 'type';
   $handler->display->display_options['fields']['type']['relationship'] = 'uid_representative';
   $handler->display->display_options['fields']['type']['exclude'] = TRUE;
-  /* Field: Content: Author(s) */
+  /* Field: Content: Authors */
   $handler->display->display_options['fields']['field_lug_blog_author']['id'] = 'field_lug_blog_author';
   $handler->display->display_options['fields']['field_lug_blog_author']['table'] = 'field_data_field_lug_blog_author';
   $handler->display->display_options['fields']['field_lug_blog_author']['field'] = 'field_lug_blog_author';
