@@ -10,10 +10,15 @@ include_once 'luggage_blog.features.inc';
  * Implements theme_preprocess_node()
  */
 function luggage_blog_preprocess_node(&$vars) {
-  // rewrite the display of the "Display author and date information" to be nicer for only
+  // Rewrite the display of the "Display author and date information" to be nicer for only
   // blog posts.
   if($vars['submitted'] && $vars['type'] == "lug_blog") {
-    $vars['submitted'] = t("%datetime", array('%datetime' => format_date($vars['node']->created, 'luggage_blog')));
+    // Search results and teasers: February 25, 2016
+    if ($vars['teaser'] || $vars['view_mode'] == 'search_result') {
+      $vars['submitted'] = t("%datetime", array('%datetime' => format_date($vars['node']->created, 'luggage_blog_teaser')));
+    } else {
+      $vars['submitted'] = t("%datetime", array('%datetime' => format_date($vars['node']->created, 'custom', 'F j, Y')));
+    }
   }
 }
 
