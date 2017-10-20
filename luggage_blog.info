@@ -42,6 +42,7 @@ features[user_permission][] = delete own lug_blog content
 features[user_permission][] = edit any lug_blog content
 features[user_permission][] = edit own lug_blog content
 features[variable][] = date_format_luggage_blog
+features[variable][] = date_format_luggage_blog_teaser
 features[variable][] = field_bundle_settings_node__lug_blog
 features[variable][] = menu_options_lug_blog
 features[variable][] = menu_parent_lug_blog
