@@ -6,79 +6,6 @@
 
 include_once 'luggage_blog.features.inc';
 
-
-/*
- * Implements hook_form_alter()
- */
-function luggage_blog_form_alter(&$form, &$form_state, $form_id) {
-
-  if($form_id == 'lug_blog_node_form') {
-
-    // *** Format field_lug_blog_author ***
-
-    // wrappers around the custom markup
-    $prefix = '<div class="field-type-entityreference field-name-field-lugg-blog-author form-wrapper" id="edit-field-lug-blog-author">';
-    $prefix .= '<div class="form-item form-type-textfield form-item-field-lug-blog-author-und">';
-    $prefix .= '<label>Author';
-    $prefix .= '<span class="form-required" title="this field is required.">*</span>';
-    $prefix .= "</label>";
-
-    $suffix = '</div></div>';
-
-    $form['field_lug_blog_author']['#type'] = 'markup';
-    // display the value without the nodeID in parenthesis.
-    $form['field_lug_blog_author']['#markup'] = $prefix . preg_replace("/\([^)]+\)/", "", $form['field_lug_blog_author']['und'][0]['target_id']['#default_value']) . $suffix;
-
-    $form['field_lug_blog_author']['und'][0]['target_id']['#disabled'] = TRUE;
-
-    // Set the default value for blog author to the people node that matches the user's email address
-    if(empty($form['field_lug_blog_author']['und'][0]['target_id']['#default_value'])) {
-      $mail = $GLOBALS['user']->mail;
-      $author = _luggage_blog_get_people_by_email($mail);
-
-      if($author) {
-        $profile = entity_load('node', $author);
-        $profile = array_shift($profile);
-        $value = $profile->title . " (" . $profile->nid . ")";
-
-        $form['field_lug_blog_author']['und'][0]['target_id']['#value'] = $value;
-
-        // TODO: This needs to be cleaned up a bit to look better
-        $form['field_lug_blog_author']['#markup'] = $prefix . $profile->title . $suffix;
-      }
-      else {
-        // if there is not a matching author, prompt the user to create their profile.
-        drupal_set_message(t('You must <a href="'.$GLOBALS['base_path'].'my/profile">create your profile</a> before creating a blog entry.'), 'warning');
-        $form['field_lug_blog_author']['#markup'] = ' ';
-        $form['#disabled'] = TRUE;
-      }
-
-    }
-  }
-}
-
-/**
- * Helper function to get the people node based on email address
- * @param $mail: email address of target people node
- * @return array|bool: nid of the people node in a form suitable for entity_load(). FALSE if not found
- */
-function _luggage_blog_get_people_by_email($mail) {
-
-  $query = new EntityFieldQuery();
-
-  $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'people')
-    ->fieldCondition('field_people_email', 'email', $mail, '=');
-
-  $result = $query->execute();
-
-  if(!empty($result)) {
-      return array_keys($result['node']);
-  }
-
-  return FALSE;
-}
-
 /**
  * Implements theme_preprocess_node()
  */
@@ -86,7 +13,53 @@ function luggage_blog_preprocess_node(&$vars) {
   // rewrite the display of the "Display author and date information" to be nicer for only
   // blog posts.
   if($vars['submitted'] && $vars['type'] == "lug_blog") {
-    $vars['submitted'] = t("%datetime",
-      array('%datetime' => format_date($vars['node']->created, 'news')));
+    $vars['submitted'] = t("%datetime", array('%datetime' => format_date($vars['node']->created, 'luggage_blog')));
   }
+}
+
+function luggage_blog_views_pre_render(&$view) {
+  if ($view->name == 'blog' && $view->current_display == 'page') {
+    drupal_add_css(drupal_get_path('module', 'luggage_blog') . '/css/blog_blog.css');
+  } else if ($view->name == 'blog' && $view->current_display == 'person_blog_page' && isset($view->build_info['substitutions']['%1'])) {
+    $view->set_title($view->build_info['substitutions']['%1']);
+    drupal_add_css(drupal_get_path('module', 'luggage_blog') . '/css/luggage_blog_person.css');
+  } else if ($view->name == 'blog' && $view->current_display == 'blog_author_list_attachment') {
+    drupal_add_css(drupal_get_path('module', 'luggage_blog') . '/css/luggage_blog_author_list_attachment.css');
+  }
+}
+
+function luggage_blog_views_query_alter(&$view, &$query) {
+  if ($view->name == 'blog' && ($view->current_display == 'block_2' || $view->current_display == 'page_1')) {
+    $query->distinct = TRUE;
+
+//    $query->add_field('taxonomy_term_data', 'nid')
+  }
+}
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function luggage_blog_field_formatter_info_alter(&$info) {
+  // Take over views_node_author format for a bit to change some things for blog.
+  // http://drupal.stackexchange.com/questions/58168/hook-into-other-modules-field-formatter
+  $info['views_node_author']['module'] = 'luggage_blog';
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function luggage_blog_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  // Override the date format for blog author display.
+
+  // Bring in the luggage_aliases field formatter to get things set up.
+  $element = luggage_aliases_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display);
+
+  // Alter date format for luggage blog.
+  if ($entity->type == 'lug_blog' && $display['type'] == 'views_node_author') {
+    foreach ($items as $delta => $item) {
+      $element[$delta]['#created'] = format_date($entity->created, 'luggage_blog');
+    }
+  }
+
+  return $element;
 }
